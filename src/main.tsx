@@ -6,11 +6,20 @@ import {
 } from "react-router-dom";
 import "./index.css";
 import Root from "./routes/root";
+import ErrorPage from "./error-page";
+import Task from "./routes/task";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Root />,
+        errorElement: <ErrorPage />,
+        children: [
+            {
+                path: "tasks/:taskId",
+                element: <Task />,
+            },
+        ],
     },
 ]);
 

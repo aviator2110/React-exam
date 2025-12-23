@@ -1,3 +1,6 @@
+import {Form} from "react-router-dom";
+import { Outlet } from "react-router-dom";
+
 export default function Root() {
     return (
         <>
@@ -28,8 +31,28 @@ export default function Root() {
                 </div>
                 <nav>
                     <ul>
-                        <li>
+                        <li id="task-list">
                             <a href={`/tasks/1`}>Task 1</a>
+                            <div>
+                                <Form action="edit">
+                                    <button type="submit">Edit</button>
+                                </Form>
+                                <Form
+                                    method="post"
+                                    action="destroy"
+                                    onSubmit={(event) => {
+                                        if (
+                                            !confirm(
+                                                "Please confirm you want to delete this task."
+                                            )
+                                        ) {
+                                            event.preventDefault();
+                                        }
+                                    }}
+                                >
+                                    <button type="submit">Delete</button>
+                                </Form>
+                            </div>
                         </li>
                         <li>
                             <a href={`/tasks/2`}>Task 2</a>
@@ -37,7 +60,9 @@ export default function Root() {
                     </ul>
                 </nav>
             </div>
-            <div id="detail"></div>
+            <div id="detail">
+                <Outlet />
+            </div>
         </>
     );
 }
