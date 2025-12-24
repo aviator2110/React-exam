@@ -1,5 +1,14 @@
 import {Form} from "react-router-dom";
-import { Outlet } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
+import { getTasks } from "../tasks";
+
+export async function loader({ request }: LoaderFunctionArgs) {
+    const url = new URL(request.url);
+    const q = url.searchParams.get("q") ?? undefined;
+    const contacts = await getContacts(q);
+
+    return { contacts, q };
+}
 
 export default function Root() {
     return (
@@ -32,7 +41,7 @@ export default function Root() {
                 <nav>
                     <ul>
                         <li id="task-list">
-                            <a href={`/tasks/1`}>Task 1</a>
+                            <Link to={`tasks/1`}>Task 1</Link>
                             <div>
                                 <Form action="edit">
                                     <button type="submit">Edit</button>
@@ -55,7 +64,7 @@ export default function Root() {
                             </div>
                         </li>
                         <li>
-                            <a href={`/tasks/2`}>Task 2</a>
+                            <Link to={`tasks/2`}>Task 2</Link>
                         </li>
                     </ul>
                 </nav>

@@ -10,7 +10,10 @@ export default function Task() {
             <h1>
                 {task.name || task.description ? (
                     <>
-                        {task.name} {task.description}
+                        {task.name}
+                        <br/>
+                        <br/>
+                        {task.description}
                     </>
                 ) : (
                     <i>No Name</i>
